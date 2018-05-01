@@ -1,0 +1,8 @@
+.env
+.sqsCredenciales.yml
+.development.log
+
+/.env
+/.sqsCredenciales.yml
+/cache/*
+/logs/*
