@@ -2,23 +2,21 @@ class HomeController < ApplicationController
    before_action :set_concurso
 
    def index
-		
    end
-	
+
    def find
      #@vocess_locutor = VocessLocutor.new
      #@concursos = Concurso.new
    end
-	
+
    private
    def set_concurso
-    	if administrator_signed_in?
+        if administrator_signed_in?
 #         @concursos = Concurso.where administrator_id: current_administrator.id
- 	  Aws.config.update({ region: "us-east-2" })
-          credentials = Aws::SharedCredentials.new(profile_name: 'default')
-          dynamodb = Aws::DynamoDB::Client.new(credentials: credentials)
+          Aws.config.update({ region: "us-east-2" })
+          dynamodb = Aws::DynamoDB::Client.new( access_key_id: ENV['Dynamo_KEY'],
+                                                secret_access_key: ENV['Dynamo_SECRET'])
           table_name = 'concursos'
-
           parameter = {
             table_name: table_name,
             key_condition_expression: "#admin = :administrator",
@@ -29,7 +27,6 @@ class HomeController < ApplicationController
                ":administrator" => current_administrator.id
             }
           }
-
           begin
                 @concursos = dynamodb.query(parameter)
                 puts "Query succeeded."
@@ -37,7 +34,6 @@ class HomeController < ApplicationController
                 puts "Unable to query table:"
                 flash[:danger] = "#{error.message}"
           end
-
-	end
+        end
    end
 end
