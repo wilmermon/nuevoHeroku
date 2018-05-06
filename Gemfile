@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 # Se instala la gema para el worker en heroku sidekiq
-gem 'sidekiq'
+# gem 'sidekiq'
 gem 'carrierwave-audio'
 gem 'carrierwave'
 gem 'mini_magick'
