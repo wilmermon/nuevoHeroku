@@ -1,3 +1,4 @@
+class ConcursosController < ApplicationController
     #before_action :set_concurso, only: [:show, :edit, :update, :destroy]
     require "aws-sdk"
     require 'securerandom'
