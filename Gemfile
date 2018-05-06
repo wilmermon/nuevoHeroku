@@ -16,7 +16,7 @@ gem 'yaml_db'
 # gem 'aws-sdk', '~> 2.1'
 # gem 'aws-sdk-s3'
 # Se instala la gema que nos permite interacturar con S3 amazon
-gem 'aws-sdk', '~> 2.1'
+gem 'aws-sdk', '~> 3'
 group :development do
     gem 'dotenv-rails'
 end
