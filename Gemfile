@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 # Se instala la gema para el worker en heroku sidekiq
 # gem 'sidekiq'
+gem 'shoryuken'
 gem 'carrierwave-audio'
 gem 'carrierwave'
 gem 'mini_magick'
@@ -16,8 +17,9 @@ gem 'will_paginate-bootstrap'
 gem 'mysql2'
 gem 'yaml_db'
 # gem 'aws-sdk', '~> 2.1'
-gem 'aws-sdk-s3'
-# Se instala la gema que nos permite interacturar con S3 amazon
+# Se instala la gema que nos permite interacturar con S3 y SQS de amazon
+gem 'aws-sdk-s3' 
+gem 'aws-sdk-sqs'
 gem 'aws-sdk', '~> 3'
 group :development do
     gem 'dotenv-rails'
