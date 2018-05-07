@@ -1,0 +1,8 @@
+access_key_id: <%=ENV['SQS_ACCESS_KEY']%>
+secret_access_key: <%=ENV['SQS_ACCESS_SECRET']%>
+region: us-east-2
+pidfile: pidfile_path
+logfile: logfile
+concurrency: 25
+delay: 1
+queues:
