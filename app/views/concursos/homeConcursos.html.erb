@@ -47,8 +47,8 @@
                   <small><%= vocess_locutor["emailLocutor"] %></small>
 		  </h3>
                    <%= vocess_locutor["created_at"] %>
-                   <% if vocess_locutor["originalURL"] != nil  %>
-                    	<p><%=audio_tag(["#{vocess_locutor["originalURL"].first(vocess_locutor["originalURL"].index('?'))}"], :size => "340x30", :controls => true, :download => false) %></p>
+                   <% if vocess_locutor["convertidaURL"] != "null"  %>
+                    	<p><%=audio_tag(["#{vocess_locutor["convertidaURL"]}"], :size => "340x30", :controls => true, :download => false) %></p>
                   <% end %>
               </div>
           <% end %>
