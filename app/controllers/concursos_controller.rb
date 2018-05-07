@@ -62,7 +62,7 @@ class ConcursosController < ApplicationController
                 key_condition_expression: "concurso_id = :concurso and estado = :est",
                 expression_attribute_values: {
                     ":concurso" => session[:concurso_id],
-                    ":est" => 'En proceso'
+                    ":est" => 'Convertida'
                 }
             }
             @vocess_locutors = dynamodb.query(parameter)
