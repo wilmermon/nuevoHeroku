@@ -22,7 +22,7 @@ class ConversionWorker
     @vocess_locutors = dynamodb.query(parameter)
     @vocess_locutors.items.each do |vocess_locutor|
         path_vocess_locutor = vocess_locutor["originalURL"][0, vocess_locutor["originalURL"].index('?')]
-        pathConvert = path_vocess_locutor[0, path_vocess_locutor.length - 3]
+        pathConvert = path_vocess_locutor[0, path_vocess_locutor.length - 3].gsub('cache','store') + "mp3"
         params = {
             table_name: table_name,
             key: {
