@@ -45,7 +45,7 @@ def create
                 apellidosLocutor: @vocess_locutor.apellidosLocutor,
                 emailLocutor: @vocess_locutor.emailLocutor,
                 originalURL: @vocess_locutor.voz_url,
-                convertidaURL: nil,
+                convertidaURL: "null",
                 comentarios: @vocess_locutor.comentarios,
                 estado: "En proceso",
                 created_at: Time.now.to_s,
