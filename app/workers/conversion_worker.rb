@@ -1,10 +1,10 @@
 class ConversionWorker
-  include Shoryuken::Worker
-  include SendGrid
   require "sendgrid-ruby"
   require "aws-sdk"
-  requiere "json"
+  require "json"
   
+  include Shoryuken::Worker
+  include SendGrid
   shoryuken_options queue: 'ColaAudiosPorConvertir.fifo', auto_delete: false
 
   def perform(sqs_msg, body)
