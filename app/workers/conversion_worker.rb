@@ -47,28 +47,22 @@ class ConversionWorker
           @from = Email.new(email: 'publivoz@publivoz.com')
           @subject = 'Su audio ya es público!'
           @to = Email.new(email: vocess_locutor["emailLocutor"])
-          content = Content.new(type: 'text/plain', value: "\n Cordial saludo, " + vocess_locutor["nombresLocutor"] + " " + vocess_locutor["apellidosLocutor"] + 
-            "\n\n  Es un placer para nosotros informale que su audio ha sido actualizado al estado activo, por lo cual ya es visible desde nuestro portal.\n 
-            Para verlo y reproducirlo por favor acceda a esta url: " + vocess_locutor["convertidaURL"] + "\n Le deseamos la mejor de las suertes en el concurso.\n\n 
-            Gracias por hacer parte de este proyecto.\n\n Atentamente: Grupo de trabajo de Publivoz." )
+          content = Content.new(type: 'text/plain', value: "\nCordial saludo, " + vocess_locutor["nombresLocutor"] + " " + vocess_locutor["apellidosLocutor"] + 
+            "\n\nEs un placer para nosotros informale que su audio ha sido actualizado al estado activo, por lo cual ya es visible desde nuestro portal.\n
+Para verlo y reproducirlo por favor acceda a esta url: " + vocess_locutor["convertidaURL"] + "\nLe deseamos la mejor de las suertes en el concurso.\n\n
+Gracias por hacer parte de este proyecto.\n\nAtentamente: Grupo de trabajo de Publivoz." )
           mail = Mail.new(@from, @subject, @to, content)
           sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'], host: 'https://api.sendgrid.com')
           raise 'A test exception.'
           @response = sg.client.mail._('send').post(request_body: mail.to_json)
         rescue Exception => e
-          content = Content.new(type: 'text/plain', value: "\n Cordial saludo, " + vocess_locutor["nombresLocutor"] + " " + vocess_locutor["apellidosLocutor"] + 
-            "\n\n  Lamentamos informarle que su audio no pudo ser convertido y se encuentra en estado inactivo, por lo cual aún no es visible desde nuestro portal.\n 
-            Intentaremos resolver el problema y le avisaremos cuando su audio este disponible\n Disculpe las molestias.\n\n 
-            Agradecemos su comprensión.\n\n Atentamente: Grupo de trabajo de Publivoz." )
+          content = Content.new(type: 'text/plain', value: "\nCordial saludo, " + vocess_locutor["nombresLocutor"] + " " + vocess_locutor["apellidosLocutor"] + 
+            "\n\nLamentamos informarle que su audio no pudo ser convertido y se encuentra en estado inactivo, por lo cual aún no es visible desde nuestro portal.\n
+Intentaremos resolver el problema y le avisaremos cuando su audio este disponible.\nDisculpe las molestias.\n\nAgradecemos su comprensión.\n\nAtentamente: Grupo de trabajo de Publivoz." )
           mail = Mail.new(@from, @subject, @to, content)
           @response = sg.client.mail._('send').post(request_body: mail.to_json)
-          puts e.message 
         end
         sqs_msg.delete unless should_retry?(sqs_msg, body) 
     end
     puts "Hello: " + body
-    puts @response.status_code
-    puts @response.body
-    puts @response.headers
-  end
 end
