@@ -43,9 +43,9 @@ class ConversionWorker
         movie.transcode('/temp/' + fileName[0, fileName.length - 3]+'mp3', options)
         obj = s3_client.bucket(ENV['S3_BUCKET']).object(fileName)
         # Metadata to add
-        metadata = {"answer" => "42"}
+        #metadata = {"answer" => "42"}
         # Upload it      
-        obj.upload_file(fileName, metadata: metadata)
+        obj.upload_file('store'/+ fileName)
         #Codigo de conversion del archivo
         params = {
           table_name: table_name,
