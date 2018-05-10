@@ -6,7 +6,7 @@ class ConversionWorker
   
   include Shoryuken::Worker
   include SendGrid
-  shoryuken_options queue: 'ColaAudiosPorConvertir.fifo', auto_delete: true
+  shoryuken_options queue: 'ColaAudiosPorConvertir.fifo', auto_delete: false
 
   def perform(sqs_msg, body)
     Aws.config.update({ region: "us-east-2" })
