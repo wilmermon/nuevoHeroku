@@ -33,15 +33,15 @@ class ConversionWorker
         path_vocess_locutor = vocess_locutor["originalURL"][0, vocess_locutor["originalURL"].index('?')]
         pathConvert = path_vocess_locutor[0, path_vocess_locutor.length - 3].gsub('cache','store') + "mp3" 
         fileName = path_vocess_locutor[path_vocess_locutor.index('cache') + 6, path_vocess_locutor.length]
-        s3_client.get_object(bucket: ENV['S3_BUCKET'], key: fileName, response_target: '/temp/' + fileName)
-        movie = FFMPEG::Movie.new('/temp/' + fileName)
+        s3_client.get_object(bucket: ENV['S3_BUCKET'], key: fileName, response_target: '/tmp/' + fileName)
+        movie = FFMPEG::Movie.new('/tmp/' + fileName)
         options = {:video_codec => "libx264", :frame_rate => 10, :resolution => "320x240", :video_bitrate => 300, :video_bitrate_tolerance => 100,
              :croptop => 60, :cropbottom => 60, :cropleft => 10, :cropright => 10, :aspect => 1.333333, :keyframe_interval => 90,
              :audio_codec => "libfaac", :audio_bitrate => 32, :audio_sample_rate => 22050, :audio_channels => 1,
              :threads => 2,
              :custom => "-flags +loop -cmp +chroma -partitions +parti4x4+partp8x8 -flags2 +mixed_refs -me_method umh -subq 6 -refs 6 -rc_eq 'blurCplx^(1-qComp)' -coder 0 -me_range 16 -g 250 -keyint_min 25 -sc_threshold 40 -i_qfactor 0.71 -qcomp 0.6 -qmin 10 -qmax 51 -qdiff 4 -level 21"}
         movie.transcode('/temp/' + fileName[0, fileName.length - 3]+'mp3', options)
-        obj = s3_client.bucket(ENV['S3_BUCKET']).object(fileName)
+        obj = s3_client.bucket(ENV['S3_BUCKET']).object('/tmp/' + fileName)
         # Metadata to add
         #metadata = {"answer" => "42"}
         # Upload it      
