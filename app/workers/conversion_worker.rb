@@ -12,9 +12,8 @@ class ConversionWorker
     Aws.config.update({ region: "us-east-2" })
     dynamodb = Aws::DynamoDB::Client.new( access_key_id: ENV['Dynamo_KEY'],
                                           secret_access_key: ENV['Dynamo_SECRET'])
-    s3_client = Aws::S3::Client.new( access_key_id: ENV['S3_KEY'],
+    #s3_client = Aws::S3::Client.new( access_key_id: ENV['S3_KEY'],
                                           secret_access_key: ENV['S3_SECRET'])
-    
     table_name = 'vocess_locutors'
     parameter = {
         table_name: table_name,
@@ -28,10 +27,10 @@ class ConversionWorker
     }
 
     @vocess_locutors = dynamodb.query(parameter)
-    @vocess_locutors.items.each do |vocess_locutor|
-      
+    @vocess_locutors.items.each do |vocess_locutor|  
         path_vocess_locutor = vocess_locutor["originalURL"][0, vocess_locutor["originalURL"].index('?')]
         pathConvert = path_vocess_locutor[0, path_vocess_locutor.length - 3].gsub('cache','store') + "mp3" 
+=begin
         fileName = path_vocess_locutor[path_vocess_locutor.index('cache') + 6, path_vocess_locutor.length]
         s3_client.get_object(bucket: ENV['S3_BUCKET'], key: fileName, response_target: '/tmp/' + fileName)
         movie = FFMPEG::Movie.new('/tmp/' + fileName)
@@ -47,6 +46,7 @@ class ConversionWorker
         # Upload it      
         obj.upload_file('/store'/+ fileName)
         #Codigo de conversion del archivo
+=end
        begin
         params = {
           table_name: table_name,
@@ -56,7 +56,7 @@ class ConversionWorker
           },
           update_expression: "set estado = :est, convertidaURL = :pathConvert, updated_at = :update",
           expression_attribute_values: {
-              ":est" => 'En proceso',
+              ":est" => 'Convertida',
               ":pathConvert" => pathConvert,
               ":update" => Time.now.to_s
           },
@@ -79,11 +79,11 @@ Gracias por hacer parte de este proyecto.\n\nAtentamente: Grupo de trabajo de Pu
           "\n\nLamentamos informarle que su audio no pudo ser convertido y se encuentra en estado inactivo, por lo cual aún no es visible desde nuestro portal.\n
 Intentaremos resolver el problema y le avisaremos cuando su audio este disponible.\nDisculpe las molestias.\n\nAgradecemos su comprensión.\n\nAtentamente: Grupo de trabajo de Publivoz." )
         mail = Mail.new(@from, subject, @to, content)
-        #@response = sg.client.mail._('send').post(request_body: mail.to_json)
+        @response = sg.client.mail._('send').post(request_body: mail.to_json)
         puts e
       end
       sqs_msg.delete unless should_retry?(sqs_msg, body) 
     end
-    puts "Hello: " + body
+    #puts "Hello: " + body
   end
 end
