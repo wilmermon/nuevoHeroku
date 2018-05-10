@@ -1,7 +1,7 @@
 class HireFireController < ApplicationController
   def info
     render json: JSON.generate([
-      {name: "worker", quantity: 20}
+      {name: "worker", quantity: 10}
     ])
   end
  end
