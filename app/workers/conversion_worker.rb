@@ -13,7 +13,7 @@ class ConversionWorker
     dynamodb = Aws::DynamoDB::Client.new( access_key_id: ENV['Dynamo_KEY'],
                                           secret_access_key: ENV['Dynamo_SECRET'])
     #s3_client = Aws::S3::Client.new( access_key_id: ENV['S3_KEY'],
-                                          secret_access_key: ENV['S3_SECRET'])
+    #                                      secret_access_key: ENV['S3_SECRET'])
     table_name = 'vocess_locutors'
     parameter = {
         table_name: table_name,
