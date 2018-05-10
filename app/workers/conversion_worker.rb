@@ -56,7 +56,7 @@ class ConversionWorker
           },
           update_expression: "set estado = :est, convertidaURL = :pathConvert, updated_at = :update",
           expression_attribute_values: {
-              ":est" => 'Convertida',
+              ":est" => 'En proceso',
               ":pathConvert" => pathConvert,
               ":update" => Time.now.to_s
           },
