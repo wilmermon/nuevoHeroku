@@ -6,7 +6,7 @@ class ConversionWorker
   
   include Shoryuken::Worker
   include SendGrid
-  shoryuken_options queue: 'ColaAudiosPorConvertir.fifo', auto_delete: false
+  shoryuken_options queue: 'ColaAudiosPorConvertir.fifo', auto_delete: true
 
   def perform(sqs_msg, body)
     Aws.config.update({ region: "us-east-2" })
@@ -82,7 +82,7 @@ Intentaremos resolver el problema y le avisaremos cuando su audio este disponibl
         @response = sg.client.mail._('send').post(request_body: mail.to_json)
         puts e
       end
-      sqs_msg.delete unless should_retry?(sqs_msg, body) 
+      #sqs_msg.delete unless should_retry?(sqs_msg, body) 
     end
     #puts "Hello: " + body
   end
