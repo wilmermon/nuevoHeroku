@@ -7,6 +7,7 @@ end
 # Se instala la gema para el worker en heroku sidekiq
 # gem 'sidekiq'
 # gem 'capistrano-shoryuken', github: 'joekhoobyar/capistrano-shoryuken'
+gem 'hirefire-resource'
 gem 'hirefire'
 gem 'streamio-ffmpeg'
 gem 'shoryuken'
