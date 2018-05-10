@@ -71,7 +71,6 @@ Para verlo y reproducirlo por favor acceda a esta url: " + vocess_locutor["conve
 Gracias por hacer parte de este proyecto.\n\nAtentamente: Grupo de trabajo de Publivoz." )
         mail = Mail.new(@from, subject, @to, content)
         sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'], host: 'https://api.sendgrid.com')
-        raise 'A test exception.'
         @response = sg.client.mail._('send').post(request_body: mail.to_json)
       rescue Exception => e
         subject = 'Su audio no pudo convertirse!'
@@ -80,6 +79,7 @@ Gracias por hacer parte de este proyecto.\n\nAtentamente: Grupo de trabajo de Pu
 Intentaremos resolver el problema y le avisaremos cuando su audio este disponible.\nDisculpe las molestias.\n\nAgradecemos su comprensión.\n\nAtentamente: Grupo de trabajo de Publivoz." )
         mail = Mail.new(@from, subject, @to, content)
         #@response = sg.client.mail._('send').post(request_body: mail.to_json)
+        puts e
       end
       sqs_msg.delete unless should_retry?(sqs_msg, body) 
     end
