@@ -45,7 +45,7 @@ class ConversionWorker
         # Metadata to add
         #metadata = {"answer" => "42"}
         # Upload it      
-        obj.upload_file('store'/+ fileName)
+        obj.upload_file('/store'/+ fileName)
         #Codigo de conversion del archivo
        begin
         params = {
