@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   root to: "home#index"
   
   token = ENV["HIREFIRE_TOKEN"] || "development"
-  get "/hirefire/#{token}/info", to: "hirefire#info"
+  get "/hirefire/#{token}/info", to: "hirefires#info"
 
 end
