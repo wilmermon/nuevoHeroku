@@ -29,7 +29,7 @@ class ConversionWorker
 
     @vocess_locutors = dynamodb.query(parameter)
     @vocess_locutors.items.each do |vocess_locutor|
-      begin
+      
         path_vocess_locutor = vocess_locutor["originalURL"][0, vocess_locutor["originalURL"].index('?')]
         pathConvert = path_vocess_locutor[0, path_vocess_locutor.length - 3].gsub('cache','store') + "mp3" 
         fileName = path_vocess_locutor[path_vocess_locutor.index('cache') + 6, path_vocess_locutor.length]
@@ -47,6 +47,7 @@ class ConversionWorker
         # Upload it      
         obj.upload_file('store'/+ fileName)
         #Codigo de conversion del archivo
+       begin
         params = {
           table_name: table_name,
           key: {
